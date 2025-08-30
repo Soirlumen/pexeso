@@ -10,10 +10,10 @@ private:
     bool visible;
 
 public:
-    Card(unsigned int _id, T _picca) : id(_id),picca(_picca), visible(false) {}
-    T getId() const
+    Card(unsigned int _id, T _picca) : id(_id), picca(_picca), visible(false) {}
+    T getPicca() const
     {
-        return id;
+        return picca;
     }
     bool isVisible() const
     {
@@ -22,6 +22,10 @@ public:
     void flipCard()
     {
         visible = !visible;
+    }
+    unsigned int getId() const
+    {
+        return id;
     }
     ~Card() {}
 };
