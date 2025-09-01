@@ -17,15 +17,16 @@ Pexeso::Pexeso(std::vector<Player> _p, Gameboard _g) : players(_p), Gme(_g), rou
     }
 }
 
-void Pexeso::oneTurn(Player _player, const int first_card, const int second_card)
+void Pexeso::oneTurn(Player &_player, const int first_card, const int second_card)
 {
-    if (getGme().getDeck()[first_card].isVisible() && getGme().getDeck()[second_card].isVisible())
+    if (!getGme().getDeck()[first_card].isVisible() && !getGme().getDeck()[second_card].isVisible())
     {
         getGme().getDeck()[first_card].flipCard();
         getGme().getDeck()[second_card].flipCard();
         if (getGme().getDeck()[first_card].getId() == getGme().getDeck()[second_card].getId())
         {
             _player.addScore();
+            std::cout<<"mas bod!\n";
         }
         else
         {
@@ -40,7 +41,7 @@ void Pexeso::oneTurn(Player _player, const int first_card, const int second_card
 void Pexeso::oneRound()
 {
     std::cout << "kolo: " << round;
-    for (auto pl : getPlayers())
+    for (auto &pl : getPlayers())
     {
         std::cout << "na rade je hrac " << pl.getName() << "\n";
         int a = getACardIndex();
@@ -70,11 +71,6 @@ Pexeso::~Pexeso()
 {
 }
 
-Gameboard Pexeso::getGme() const
-{
-    return Gme;
-}
-
 std::vector<Player> Pexeso::getPlayers() const
 {
     return players;
@@ -98,6 +94,9 @@ int Pexeso::getACardIndex() const
         }
         else
         {
+            if(pom==-1){
+                exit;
+            }
             // vymaze error flag
             std::cin.clear();
             // Vyprázdnit špatný zbytek vstupu
@@ -107,22 +106,19 @@ int Pexeso::getACardIndex() const
     }
 }
 
-void Pexeso::addRound()
-{
-    setRound(getRound()+1);
-}
-
 void Pexeso::showResults() const
 {
-    for(auto pl:getPlayers()){
-        std::cout<<"hrac "<<pl.getName()<<" ma "<<pl.getScore()<<" bodu,\n";
+    for (auto pl : getPlayers())
+    {
+        std::cout << "hrac " << pl.getName() << " ma " << pl.getScore() << " bodu,\n";
     }
 }
 
 void Pexeso::play()
 {
-while(!isAllGone()){
-    oneRound();
-}
-showResults();
+    while (!isAllGone())
+    {
+        oneRound();
+    }
+    showResults();
 }
