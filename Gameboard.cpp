@@ -21,15 +21,27 @@ Gameboard::Gameboard(const Str &_wo, unsigned int _nop) : where_obraski(_wo), nu
     {
         throw std::runtime_error("Pocet paru je vyssi nez mozny pocet obrazku.");
     }
+        if (number_of_pairs<1)
+    {
+        throw std::runtime_error("musis hrat aspoň s nejakyma kartickami...");
+    }
     for(unsigned int i=1; i<=number_of_pairs;i++){
         dEck.emplace_back(i,pom[i]);
         dEck.emplace_back(i,pom[i]); //chceme pár :3
     }
+    std::random_device rd;  
+    std::mt19937 g(rd()); 
+    std::shuffle(dEck.begin(), dEck.end(), g);
     std::cout<<"everything is just right:)"<<std::endl;
 }
 
 Gameboard::~Gameboard()
 {
+}
+
+vector_of_cards Gameboard::getDeck() const
+{
+    return dEck;
 }
 
 std::vector<Str> read_folder(const Str &fold)

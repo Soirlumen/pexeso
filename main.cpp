@@ -3,6 +3,5 @@
 
 int main()
 {
-
     Gameboard g("pic",3);
 }

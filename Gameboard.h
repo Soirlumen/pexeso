@@ -6,13 +6,14 @@
 #include <random>
 #include <filesystem>
 #include <stdexcept>
+#include <algorithm>
 #include "Card.h"
 typedef std::string Str; // konzolova verze
 typedef std::vector<Str> vector_of_pics_names;
 typedef std::vector<Card<Str>> vector_of_cards;
 namespace fs = std::filesystem;
 
-std::vector<Str> read_folder(const Str& fold);
+std::vector<Str> read_folder(const Str &fold);
 
 class Gameboard
 {
@@ -22,10 +23,20 @@ private:
     vector_of_cards dEck;
 
 public:
-    Str getWhereObraski()const;
-    unsigned int getNumberOfPairs()const;
+    Str getWhereObraski() const;
+    unsigned int getNumberOfPairs() const;
     Gameboard(const Str &_wo, unsigned int _nop);
     ~Gameboard();
+    vector_of_cards getDeck() const;
+    friend std::ostream &operator<<(std::ostream &os, const Gameboard &gb)
+    {
+        for (const auto &card : gb.getDeck())
+        {
+            os << "ID: " << card.getId()
+               << ", obrazek: " << card.getPicca()
+               << ", viditelny: " << (card.isVisible() ? "ano" : "ne") << '\n';
+        }
+        return os;
+    }
 };
-
-#endif 
+#endif
