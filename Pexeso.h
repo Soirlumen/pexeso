@@ -21,7 +21,8 @@ public:
     ~Pexeso();
     Gameboard &getGme() { return Gme; }
     const Gameboard &getGme() const { return Gme; }
-    std::vector<Player> getPlayers() const;
+    const std::vector<Player> &getPlayers() const;
+    std::vector<Player> &getPlayers();
     unsigned int getRound() const;
     int getACardIndex() const;
     void addRound()

@@ -40,21 +40,28 @@ Gameboard::~Gameboard()
 {
 }
 
-vector_of_cards Gameboard::getDeck() const
+const vector_of_cards &Gameboard::getDeck() const
 {
     return dEck;
 }
 
-void Gameboard::showInvisibleCards()const
-{    const auto &deck = getDeck();
+vector_of_cards &Gameboard::getDeck()
+{
+    return dEck;
+}
+
+void Gameboard::showInvisibleCards() const
+{
+    const auto &deck = getDeck();
 
     for (size_t i = 0; i < deck.size(); i++)
     {
         if (!deck[i].isVisible())
         {
-            std::cout << "Index: " << i << " karta: " << deck[i].getId() << "\n";
+            std::cout << "Index: " << i << " karta: " << deck[i].getId() << " je viditelny? " << deck[i].isVisible() << "\n";
         }
     }
+    std::cout << "hotovo\n";
 }
 
 std::vector<Str> read_folder(const Str &fold)

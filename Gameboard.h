@@ -27,7 +27,8 @@ public:
     unsigned int getNumberOfPairs() const;
     Gameboard(const Str &_wo, unsigned int _nop);
     ~Gameboard();
-    vector_of_cards getDeck() const;
+    const vector_of_cards& getDeck() const;
+    vector_of_cards& getDeck();
     friend std::ostream &operator<<(std::ostream &os, const Gameboard &gb)
     {
         for (const auto &card : gb.getDeck())

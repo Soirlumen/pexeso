@@ -12,7 +12,7 @@ int main() {
         std::vector<Player> players = {p1, p2};
 
         // vytvoření hrací plochy s kartami
-        Gameboard gb("pic",4); // třeba 4 páry = 8 karet
+        Gameboard gb("pic",3); // třeba 4 páry = 8 karet
 
         // spuštění hry
         Pexeso hra(players, gb);

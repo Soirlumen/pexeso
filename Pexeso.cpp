@@ -32,7 +32,7 @@ bool Pexeso::oneTurn(Player &_player, const int first_card, const int second_car
         if (getGme().getDeck()[first_card].getId() == getGme().getDeck()[second_card].getId())
         {
             _player.addScore();
-            std::cout << "mas bod!\n";
+            std::cout << "mas bod! Nyni mas "<< _player.getScore()<< "bodu\n";
         }
         else
         {
@@ -51,7 +51,7 @@ void Pexeso::oneRound()
     std::cout << "kolo: " << round;
     for (auto &pl : getPlayers())
     {
-        std::cout << "na rade je hrac " << pl.getName() << "\n";
+        std::cout << ", na rade je hrac " << pl.getName() << "\n";
         while (true)
         {
             int a = getACardIndex();
@@ -84,9 +84,14 @@ Pexeso::~Pexeso()
 {
 }
 
-std::vector<Player> Pexeso::getPlayers() const
+const std::vector<Player> &Pexeso::getPlayers() const
 {
     return players;
+}
+
+std::vector<Player> &Pexeso::getPlayers()
+{
+     return players;
 }
 
 unsigned int Pexeso::getRound() const
@@ -99,32 +104,42 @@ int Pexeso::getACardIndex() const
     while (true)
     {
         int pom;
-        std::cout << "zadej cislo: ";
-        if (std::cin >> pom)
-        {
+        // napiš prompt s informací o speciálních příkazech
+        std::cout << "zadej cislo (0.."
+                  << static_cast<int>(getGme().getDeck().size()) - 1
+                  << ", -2=ukaz neviditelne, -1=quit): ";
 
-            return pom;
-        }
-        else
-        {
-            if (pom == -1)
-            {
-                exit(0);
-            }
-            if (pom == -2)
-            {
-                getGme().showInvisibleCards();
-                continue;
-            }
-            // vymaze error flag
+        // nejdřív se pokusíme načíst číslo
+        if (!(std::cin >> pom)) {
+            // neplatný vstup (např. text)
             std::cin.clear();
-            // Vyprázdnit špatný zbytek vstupu
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "To neni cislo zkus znovu...\n";
+            std::cout << "To neni cislo, zkus znovu...\n";
+            continue;
         }
+
+        // speciální příkazy po úspěšném načtení
+        if (pom == -1) {
+            std::exit(0); // správně: std::exit
+        }
+        if (pom == -2) {
+            // Pozor: getGme() musí vracet referenci/const referenci
+            // a Gameboard::showInvisibleCards() by měla být const,
+            // jinak se volání provede nad kopií nebo neprojde kompilací.
+            getGme().showInvisibleCards();
+            continue; // po udělení příkazu znovu požádej o číslo
+        }
+
+        // ověření rozsahu indexu
+        int deckSize = static_cast<int>(getGme().getDeck().size());
+        if (pom < -2 || pom >= deckSize) {
+            std::cout << "Index mimo rozsah. Zadej cislo mezi 0 a " << deckSize - 1 << ".\n";
+            continue;
+        }
+        // validní index
+        return pom;
     }
 }
-
 void Pexeso::showResults() const
 {
     for (auto pl : getPlayers())
