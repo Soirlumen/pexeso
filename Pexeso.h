@@ -15,7 +15,7 @@ private:
 public:
     static constexpr int MAX_PLAYERS = 4;
     Pexeso(std::vector<Player> _p, Gameboard _g);
-    void oneTurn(Player &_player, const int first_card, const int second_card);
+    bool oneTurn(Player &_player, const int first_card, const int second_card);
     void oneRound();
     bool isAllGone() const;
     ~Pexeso();

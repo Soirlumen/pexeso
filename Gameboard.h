@@ -38,5 +38,6 @@ public:
         }
         return os;
     }
+    void showInvisibleCards() const;
 };
 #endif
