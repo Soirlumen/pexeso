@@ -1,21 +1,33 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
-
+template<typename T>
 class Player
 {
 
 private:
-    std::string name;
+    T name;
     unsigned int score;
-    void setScore(unsigned int _s);
+    void setScore(unsigned int _s)
+    {
+        score = _s;
+    }
 
 public:
-    Player(std::string _n);
-    std::string getName() const;
-    unsigned int getScore() const;
-    void addScore();
-    ~Player();
+    Player(T _n) : name(_n), score(0) {}
+    T getName() const
+    {
+        return name;
+    }
+    unsigned int getScore() const
+    {
+        return score;
+    }
+    void addScore()
+    {
+        setScore(getScore() + 1);
+    }
+    ~Player() {}
 };
 
 #endif

@@ -5,14 +5,14 @@
 
 int main() {
     try {
-        // vytvoření hráčů
-        Player p1("Alice");
-        Player p2("Bob");
+        // hráči
+        Plr p1("kinimod");
+        Plr p2("zaba");
 
-        std::vector<Player> players = {p1, p2};
+        std::vector<Plr> players = {p1, p2};
 
-        // vytvoření hrací plochy s kartami
-        Gameboard gb("pic",3); // třeba 4 páry = 8 karet
+        // hrací plocha
+        Gameboard gb("pic",10); 
 
         // spuštění hry
         Pexeso hra(players, gb);

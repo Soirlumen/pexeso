@@ -58,7 +58,12 @@ void Gameboard::showInvisibleCards() const
     {
         if (!deck[i].isVisible())
         {
-            std::cout << "Index: " << i << " karta: " << deck[i].getId() << " je viditelny? " << deck[i].isVisible() << "\n";
+            std::cout << "Index: " 
+            << i 
+            //<< " karta: " 
+            //<< deck[i].getId() 
+            << " je viditelny? " 
+            << deck[i].isVisible() << "\n";
         }
     }
     std::cout << "hotovo\n";

@@ -3,26 +3,27 @@
 
 #include "Gameboard.h"
 #include "Player.h"
+typedef Player<Str> Plr;
 
 class Pexeso
 {
 private:
-    std::vector<Player> players;
+    std::vector<Plr> players;
     Gameboard Gme;
     unsigned int round;
     void setRound(unsigned int _nr);
 
 public:
     static constexpr int MAX_PLAYERS = 4;
-    Pexeso(std::vector<Player> _p, Gameboard _g);
-    bool oneTurn(Player &_player, const int first_card, const int second_card);
+    Pexeso(std::vector<Plr> _p, Gameboard _g);
+    bool oneTurn(Plr &_player, const int first_card, const int second_card);
     void oneRound();
     bool isAllGone() const;
     ~Pexeso();
     Gameboard &getGme() { return Gme; }
     const Gameboard &getGme() const { return Gme; }
-    const std::vector<Player> &getPlayers() const;
-    std::vector<Player> &getPlayers();
+    const std::vector<Plr> &getPlayers() const;
+    std::vector<Plr> &getPlayers();
     unsigned int getRound() const;
     int getACardIndex() const;
     void addRound()
